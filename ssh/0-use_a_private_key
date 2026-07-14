@@ -1,0 +1,4 @@
+#!/bin/bash
+# Connects to a server using a specific private key and user
+
+ssh -i ~/.ssh/school1 ubuntu@"$1"
