@@ -1,0 +1,5 @@
+ # Navigate to the correct directory
+cd alu-system-engineering-devops/web_server
+
+# Write your domain name into the file
+echo "yourdomain.tech" > 2-setup_a_domain_name
