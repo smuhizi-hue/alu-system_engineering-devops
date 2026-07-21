@@ -1,8 +1,18 @@
 #!/usr/bin/env bash
-# Installs nginx server
+# Installs an Nginx web server and configures it to return a specific string
 
-sudo apt-get update
-sudo apt-get -y install nginx
-sudo ufw allow 'Nginx HTTP'
-echo "Holberton School" | sudo tee /var/www/html/index.html > /dev/null
-sudo service nginx start
+# Update package lists
+apt-get update -y
+
+# Install Nginx
+apt-get install -y nginx
+
+# Ensure the web root directory exists
+mkdir -p /var/www/html
+
+# Write the exact string to both possible default files to be absolutely sure
+echo "Holberton School for the win!" > /var/www/html/index.html
+echo "Holberton School for the win!" > /var/www/html/index.nginx-debian.html
+
+# Start the service using the traditional init.d/service management
+service nginx restart
