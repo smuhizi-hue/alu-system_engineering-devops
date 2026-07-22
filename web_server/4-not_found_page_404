@@ -1,16 +1,12 @@
 #!/usr/bin/env bash
-# Configure a custom 404 error page on Nginx server
+# This script installs and configures Nginx on an Ubuntu machine.
 
-# Update package lists and install Nginx
-sudo apt-get update -y
-sudo apt-get install nginx -y
+# Update packages and install Nginx
+sudo apt-get update
+sudo apt-get install -y nginx
 
-# Create the custom 404 page containing the required string
-echo "Ceci n'est pas une page" | sudo tee /var/www/html/custom_404.html > /dev/null
+# Configure Nginx to return "Holberton School for the win!" on the root GET request
+echo "Holberton School for the win!" | sudo tee /var/www/html/index.html
 
-# Insert the custom 404 error page configuration into the default Nginx site config
-# This inserts the configuration right after the 'server_name _;' line
-sudo sed -i '/server_name _;/a \\terror_page 404 /custom_404.html;\n\tlocation = /custom_404.html {\n\t\troot /var/www/html;\n\t\tinternal;\n\t}' /etc/nginx/sites-available/default
-
-# Restart Nginx to apply changes
-sudo service nginx restart
+# Restart Nginx without using systemctl (using the init script directly)
+sudo /etc/init.d/nginx restart
