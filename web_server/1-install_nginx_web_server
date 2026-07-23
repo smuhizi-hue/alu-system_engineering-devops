@@ -1,14 +1,18 @@
 #!/usr/bin/env bash
-# Script to install Nginx, set default page content, and start the service
+# 1-install_nginx_web_server fix
 
-# Update system package repositories
+# 1. Update and install Nginx
 apt-get update -y
-
-# Install Nginx non-interactively
 apt-get install -y nginx
 
-# Overwrite the default index.html with the required string
+# 2. Set permissions and write required string to the default root file
+mkdir -p /var/www/html
 echo "Holberton School for the win!" > /var/www/html/index.nginx-debian.html
 
-# Start / Restart Nginx using service instead of systemctl
-service nginx restart
+# 3. Allow Nginx through UFW firewall if active
+if command -v ufw > /dev/null 2>&1; then
+    ufw allow 'Nginx HTTP'
+fi
+
+# 4. Ensure Nginx configuration is valid and start service
+nginx -t && service nginx restart
